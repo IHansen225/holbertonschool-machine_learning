@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
 """
-    The cat_matrices2D(mat1, mat2) function returns
-    the added version of the two given matrices.
+    The cat_arrays(arr1, arr2) function returns
+    the added version of the two given lists.
 """
 
 
-def cat_matrices2D(mat1, mat2, axis=0):
+def cat_arrays(arr1, arr2):
     """
-        Adds the two given matrices.
-        If the two matrices cannot be
-        concatenated, it does nothing.
+        Adds the two given lists.
     """
-    if axis == 0:
-        return(mat1 + mat2)
-    return[mat1[i] + mat2[i] for i in range(len(mat1))]
+    return arr1 + arr2
