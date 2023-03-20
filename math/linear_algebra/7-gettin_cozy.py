@@ -11,7 +11,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
         If the two matrices cannot be
         concatenated, it does nothing.
     """
-    if (len(mat1) != len(mat2)) or (len(mat1[0]) != len(mat2[0])):
+    if (len(mat1) != len(mat2)):
         return None
     if axis == 0:
         nmat = mat1 + mat2
