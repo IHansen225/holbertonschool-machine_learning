@@ -5,6 +5,7 @@
     recieved matrix.
 """
 
+
 def matrix_shape(matrix):
     """
         Caculates the shape of the provided matrix
