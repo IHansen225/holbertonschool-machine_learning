@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+    The matrix_shape(matrix) function returns
+    a list containing the dimensions of the
+    recieved matrix.
+"""
 
 def matrix_shape(matrix):
     """
