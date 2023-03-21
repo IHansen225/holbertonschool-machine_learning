@@ -3,7 +3,11 @@
     Numpy function to transpose the
     given matrix.
 """
-import numpy as np
+
 
 def np_transpose(matrix):
-    return matrix.transpose()
+    matrixT = [[] for i in range(len(matrix[0]))]
+    for i in range(len(matrixT)):
+        for j in range(len(matrix)):
+            matrixT[i].append(matrix[j][i])
+    return matrixT
