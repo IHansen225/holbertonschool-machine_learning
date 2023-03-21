@@ -8,7 +8,7 @@
 
 def np_elementwise(mat1, mat2):
     """
-        Performs element-wise addition, 
+        Performs element-wise addition,
         subtraction, multiplication,
         and division.
     """
