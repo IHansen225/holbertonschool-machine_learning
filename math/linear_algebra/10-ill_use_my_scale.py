@@ -6,4 +6,7 @@
 
 
 def np_shape(matrix):
+    """
+        Returns the shape of the given matrix
+    """
     return matrix.shape
