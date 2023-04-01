@@ -3,6 +3,7 @@
     Summation function
 """
 
+
 def summation_i_squared(n):
     """
         Returns summation of given number
