@@ -34,3 +34,16 @@ class Poisson(object):
             fk *= i
         e = 2.7182818285
         return ((e**(-1 * self.lambtha))*(self.lambtha**k))/(fk)
+
+    def cdf(self, k):
+        """
+            Calculates the cumulative distribution of poisson distribution
+        """
+        if k < 0:
+            return 0
+        if not isinstance(k, int):
+            k = int(k)
+        cdf = 0
+        for i in range(1, k+1):
+            cdf += self.pmf(i)
+        return cdf
