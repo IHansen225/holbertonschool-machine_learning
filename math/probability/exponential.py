@@ -27,7 +27,5 @@ class Exponential():
         """
         if x < 0:
             return 0
-        if not isinstance(x, int):
-            x = int(x)
         e = 2.7182818285
         return (self.lambtha * (e ** (-1 * self.lambtha * x)))
