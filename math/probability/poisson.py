@@ -27,7 +27,7 @@ class Poisson(object):
         """
         if not isinstance(k, int):
             k = int(k)
-        elif k < 0:
+        elif k < 0.0:
             return 0
         fk = 1
         for i in range(1, k+1):
