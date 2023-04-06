@@ -33,4 +33,4 @@ class Poisson(object):
         for i in range(1, k+1):
             fk *= i
         e = 2.7182818285
-        return ((e**self.lambtha)*(self.lambtha**k))/(fk)
+        return ((e**(-1 * self.lambtha))*(self.lambtha**k))/(fk)
