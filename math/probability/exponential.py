@@ -29,11 +29,12 @@ class Exponential():
             return 0
         e = 2.7182818285
         return (self.lambtha * (e ** (-1 * self.lambtha * x)))
-    
+
     def cdf(self, x):
         """
             Cumulative density function for exponential distribution
         """
         if x < 0:
             return 0
-        return (sum([self.pdf(x) for x in range(0, x+1)]))
+        e = 2.7182818285
+        return (1 - (e ** (-1 * self.lambtha * x)))
