@@ -52,3 +52,23 @@ class Normal():
             Returns the x-score of a given z point
         """
         return z * self.norm_stddev(self.data) + self.norm_mean(self.data)
+
+    def pdf(self, x):
+        """
+            Returns the probability density of a given
+            x point in a normal distribution
+        """
+        pi = 3.1415926536
+        e = 2.7182818285
+        div = 1 / (self.norm_stddev(self.data) * ((2 * pi)**(1/2)))
+        exp = (-1 * 1/2) * ((x - self.norm_mean(self.data)) / self.norm_stddev(self.data)) ** 2
+        return div * e ** exp
+
+    def cdf(self, x):
+        """
+            Returns the cumulative probability of the
+            given x point in a normal distribution
+        """
+        pi = 3.1415926536
+        e = 2.7182818285
+        erf = (2/(pi**(1/2)))*(x - ((x**3)/3) + ((x**5)/10) + ((x**7)/42) + ((x**9)/216))
