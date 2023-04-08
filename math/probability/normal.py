@@ -23,7 +23,7 @@ class Normal():
             self.mean = float(self.norm_mean(data))
             self.stddev = float(self.norm_stddev(data))
 
-    def error_function(self, x):
+    def error_f(self, x):
         """
             Computes the error value
         """
@@ -83,4 +83,4 @@ class Normal():
         """
         mean = self.norm_mean(self.data)
         stddev = self.norm_stddev(self.data)
-        return 0.5 * (1 + self.error_function((x - mean)/(stddev * (2 ** 0.5))))
+        return 0.5 * (1 + self.error_f((x - mean)/(stddev * (2 ** 0.5))))
