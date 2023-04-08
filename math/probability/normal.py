@@ -81,7 +81,6 @@ class Normal():
             Returns the cumulative probability of the
             given x point in a normal distribution
         """
-        r = (2/(pi**(1/2)))*(x-((x**3)/3)+((x**5)/10)+((x**7)/42)+((x**9)/216))
         mean = self.norm_mean(self.data)
         stddev = self.norm_stddev(self.data)
         return 0.5 * (1 + self.error_function((x - mean)/((2 * stddev)**(1/2))))
