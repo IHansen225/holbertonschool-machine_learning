@@ -72,4 +72,7 @@ class Normal():
         """
         pi = 3.1415926536
         e = 2.7182818285
+        mean = self.norm_mean(self.data)
+        stddev = self.norm_stddev(self.data)
         r = (2/(pi**(1/2)))*(x-((x**3)/3)+((x**5)/10)+((x**7)/42)+((x**9)/216))
+        return (1/2) * [1 + r((x - mean) / (stddev * (2**(1/2))))]
