@@ -23,6 +23,17 @@ class Normal():
             self.mean = float(self.norm_mean(data))
             self.stddev = float(self.norm_stddev(data))
 
+    def error_function(self, x):
+        """
+            Computes the error value
+        """
+        pi = 3.1415926536
+        x3 = (x ** 3) / 3
+        x5 = (x ** 5) / 10
+        x7 = (x ** 7) / 42
+        x9 = (x ** 9) / 216
+        return ((2/(pi**(1/2))) * (x - x3 + x5 - x7 + x9))
+
     def norm_mean(self, data):
         """
             Returns the mean of the given object's data
@@ -70,6 +81,7 @@ class Normal():
             Returns the cumulative probability of the
             given x point in a normal distribution
         """
-        pi = 3.1415926536
         r = (2/(pi**(1/2)))*(x-((x**3)/3)+((x**5)/10)+((x**7)/42)+((x**9)/216))
-        return 0.5 * (1 + r) if x >= self.mean else 0.5 * (1 - r)
+        mean = self.norm_mean(self.data)
+        stddev = self.norm_stddev(self.data)
+        return 0.5 * (1 + self.error_function((x - mean)/((2 * stddev)**(1/2))))
