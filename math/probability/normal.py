@@ -19,7 +19,7 @@ class Normal():
             if not isinstance(data, list):
                 raise TypeError("data must be a list")
             elif len(data) < 2:
-                raise ValueError("data must containt multiple values")
+                raise ValueError("data must contain multiple values")
             self.mean = float(self.norm_mean(data))
             self.stddev = float(self.norm_stddev(data))
 
