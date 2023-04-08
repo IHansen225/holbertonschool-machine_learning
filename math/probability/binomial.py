@@ -27,7 +27,6 @@ class Binomial():
                 res += (data[i] - m) ** 2
             var = res / len(data)
             self.n = round(m / (-(var/m) + 1))
-            # p == qty successes / qty of trials (n)
             self.p = m / self.n
 
     def factorial(self, n):
@@ -38,3 +37,27 @@ class Binomial():
             return 1
         else:
             return n * self.factorial(n-1)
+
+    def pmf(self, k):
+        """Calculates the value of the PMF for a given number of successes"""
+
+        if k < 0:
+            return 0
+        if not isinstance(k, int):
+            k = int(k)
+        n = self.n
+        p = self.p
+        nk = (self.factorial(n)) / (self.factorial(k) * self.factorial(n - k))
+        return (nk * (p ** k) * ((1 - p) ** (n - k)))
+
+    def cdf(self, k):
+        """Calculates the value of the CDF for a given number of successes"""
+
+        if k < 0:
+            return 0
+        if not isinstance(k, int):
+            k = int(k)
+        cdf = 0
+        for i in range(k + 1):
+            cdf += self.pmf(i)
+        return cdf
