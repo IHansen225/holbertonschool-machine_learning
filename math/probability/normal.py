@@ -83,4 +83,4 @@ class Normal():
         """
         mean = self.norm_mean(self.data)
         stddev = self.norm_stddev(self.data)
-        return 0.5 * (1 + self.error_function((x - mean)/((2 * stddev)**(1/2))))
+        return 0.5 * (1 + self.error_function((x - mean)/(stddev * (2 ** 0.5))))
