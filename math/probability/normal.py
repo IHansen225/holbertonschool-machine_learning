@@ -61,7 +61,8 @@ class Normal():
         pi = 3.1415926536
         e = 2.7182818285
         div = 1 / (self.norm_stddev(self.data) * ((2 * pi)**(1/2)))
-        exp = (-1 * 1/2) * ((x - self.norm_mean(self.data)) / self.norm_stddev(self.data)) ** 2
+        mean = self.norm_mean(self.data)
+        exp = (-1 * 1/2) * ((x - mean) / self.norm_stddev(self.data)) ** 2
         return div * e ** exp
 
     def cdf(self, x):
@@ -71,4 +72,4 @@ class Normal():
         """
         pi = 3.1415926536
         e = 2.7182818285
-        erf = (2/(pi**(1/2)))*(x - ((x**3)/3) + ((x**5)/10) + ((x**7)/42) + ((x**9)/216))
+        r = (2/(pi**(1/2)))*(x-((x**3)/3)+((x**5)/10)+((x**7)/42)+((x**9)/216))
