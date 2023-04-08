@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+"""
+    Normal distribution class
+"""
+
+
+class Normal():
+    """
+        Normal distribution object
+    """
+    def __init__(self, data=None, mean=0., stddev=1.):
+        self.data = data
+        if data is None:
+            if stddev <= 0:
+                raise ValueError("stddev must be a positive value")
+            self.stddev = stddev
+            self.mean = mean
+        else:
+            if isinstance(data, list):
+                raise TypeError("data must be a list")
+            elif len(data) < 2:
+                raise ValueError("data must containt multiple values")
+            self.mean = float(self.norm_mean(data))
+            self.stddev = float(self.norm_stddev(data))
+
+    def norm_mean(self, data):
+        """
+            Returns the mean of the given object's data
+        """
+        return sum(data)/len(data)
+
+    def norm_stddev(self, data):
+        """
+            Returns the standard deviation of the given
+            object's data
+        """
+        div = 0
+        n = len(data)
+        m = self.norm_mean(data)
+        for i in range(0, len(data)):
+            div += (data[i] - m)**2
+        return (div / n)**(1/2)
+
+    def z_score(self, x):
+        """
+            Returns the z-score of a given x point
+        """
+        return (x - self.norm_mean(self.data))/self.norm_stddev(self.data)
+
+    def x_score(self, z):
+        """
+            Returns the x-score of a given z point
+        """
+        return z * self.norm_stddev(self.data) + self.norm_mean(self.data)
