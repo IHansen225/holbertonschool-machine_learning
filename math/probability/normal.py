@@ -47,7 +47,7 @@ class Normal():
         """
         return (x - self.norm_mean(self.data))/self.norm_stddev(self.data)
 
-    def x_score(self, z):
+    def x_value(self, z):
         """
             Returns the x-score of a given z point
         """
