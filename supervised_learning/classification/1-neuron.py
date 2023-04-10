@@ -20,13 +20,13 @@ class Neuron():
         self.__A = 0
 
     @property
-    def w(self):
+    def W(self):
         """
             Returns weight value of the
             corresponding neuron
         """
         return self.__W
-    
+
     @property
     def b(self):
         """
@@ -34,7 +34,7 @@ class Neuron():
             corresponding neuron
         """
         return self.__b
-    
+
     @property
     def A(self):
         """
