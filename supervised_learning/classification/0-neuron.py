@@ -3,6 +3,7 @@
     Neuron class file for classification
     algorithm exercises
 """
+import numpy as np
 
 
 class Neuron():
