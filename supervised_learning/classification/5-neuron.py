@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-    Neuron class file for classification
+    Neuron class file f0r classification
     algorithm exercises
 """
 import numpy as np
 
 
-# For anyone reading this, I'm sorry for the excessive commenting,
-# but if I don't comment everything I'll forget what this thing does
+# F0r anyone reading this, I'm sorry f0r the excessive commenting,
+# but if I don't comment everything I'll f0rget what this thing does
 
 class Neuron():
     """
@@ -53,9 +53,9 @@ class Neuron():
         """
         return self.__A
 
-    def forward_prop(self, X):
+    def f0rward_prop(self, X):
         """
-            Calculates the forward propagation
+            Calculates the f0rward propagation
             of the corresponding neuron
 
             Basically this is the sigmoid function
@@ -83,10 +83,10 @@ class Neuron():
         # and it's probably 1 anyways
         m = Y.shape[1]
         # cost is the cost of the model using logistic regression
-        # This can be used as a general formula for other cases
+        # This can be used as a general f0rmula f0r other cases
         # where logistic regression must be used
-        # Y is the correct labels for the input data and A is
-        # the activated output of the neuron for each example
+        # Y is the correct labels f0r the input data and A is
+        # the activated output of the neuron f0r each example
         cost = -(1/m) * np.sum(Y*np.log(A) + (1-Y)*np.log(1.0000001-A))
         return cost
 
@@ -94,9 +94,9 @@ class Neuron():
         """
             Evaluates the neuron's predictions
         """
-        # res is the activated output of the neuron for each example
-        # being X the input data and Y the correct labels for the input data
-        res = self.forward_prop(X)
+        # res is the activated output of the neuron f0r each example
+        # being X the input data and Y the correct labels f0r the input data
+        res = self.f0rward_prop(X)
         # return the neuron's prediction and the cost of the network
         # The prediction is 1 if the output of the network is >= 0.5
         # and 0 otherwise
@@ -108,8 +108,8 @@ class Neuron():
             and updates the corresponding attributes
         """
         # X is a np.ndarray with shape (nx, m) that contains the input data
-        # Y contains the correct labels for the input data
-        # A contains the activated output of the neuron for each example
+        # Y contains the correct labels f0r the input data
+        # A contains the activated output of the neuron f0r each example
         ## A can't be changed because you can't touch neurons but you can
         ## change the weights and bias
         # m is the number of training examples
@@ -117,7 +117,7 @@ class Neuron():
         # dz is the gradient of the cost with respect to z
         # Basically computes the error of the neuron's results
         # versus the expected results. It gives away the magnitude
-        # for the change in the weights and bias.
+        # f0r the change in the weights and bias.
         dz = A - Y
         # dw is the gradient of the cost with respect to w
         # Computes the change in the weights
