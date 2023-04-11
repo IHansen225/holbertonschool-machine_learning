@@ -6,6 +6,9 @@
 import numpy as np
 
 
+# For anyone reading this, I'm sorry for the excessive commenting,
+# but if I don't comment everything I'll forget what this thing does
+
 class Neuron():
     """
         Neuron class object
@@ -54,6 +57,13 @@ class Neuron():
         """
             Calculates the forward propagation
             of the corresponding neuron
+
+            Basically this is the sigmoid function
+            and it's what produces the output of the neuron
+            based on what you give it as an input
+
+            It produces as many outputs as there are
+            input features
         """
         # z is the weighted sum of the inputs multiplied
         # by the weights added to the bias
@@ -91,3 +101,32 @@ class Neuron():
         # The prediction is 1 if the output of the network is >= 0.5
         # and 0 otherwise
         return np.where(res >= 0.5, 1, 0), self.cost(Y, res)
+
+    def gradient_descent(self, X, Y, A, alpha=0.05):
+        """
+            Calculates one pass of gradient descent on the neuron
+            and updates the corresponding attributes
+        """
+        # X is a np.ndarray with shape (nx, m) that contains the input data
+        # Y contains the correct labels for the input data
+        # A contains the activated output of the neuron for each example
+        ## A can't be changed because you can't touch neurons but you can
+        ## change the weights and bias
+        # m is the number of training examples
+        m = Y.shape[1]
+        # dz is the gradient of the cost with respect to z
+        # Basically computes the error of the neuron's results
+        # versus the expected results. It gives away the magnitude
+        # for the change in the weights and bias.
+        dz = A - Y
+        # dw is the gradient of the cost with respect to w
+        # Computes the change in the weights
+        dw = (1/m) * np.matmul(dz, X.T)
+        # db is the gradient of the cost with respect to b
+        # Computes the change in the bias
+        db = (1/m) * np.sum(dz)
+        # Update the weights and bias multiplicated by the learning rate
+        # being the learning rate a scalar because if I
+        # leave the gradient as is, this thing will (probably) explode
+        self.__W = self.__W - alpha * dw
+        self.__b = self.__b - alpha * db
