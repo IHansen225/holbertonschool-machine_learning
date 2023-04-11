@@ -136,15 +136,24 @@ class Neuron():
             Trains the neuron accordingly to
             the input data and labels provided
         """
+        # Check for iterations error bc it must be an int
         if not isinstance(iterations, int):
             raise TypeError("iterations must be an integer")
         if iterations < 1:
             raise ValueError("iterations must be a positive integer")
+        # Check for alpha error bc it must be a float but I think
+        # it could be casted as a float if it's an int
         if not isinstance(alpha, float):
             raise TypeError("alpha must be a float")
         if alpha <= 0:
             raise ValueError("alpha must be positive")
+        # Train the neuron
         for i in range(iterations):
+            # Forward propagation bc thats how you know what
+            # the neuron is outputting at this moment
             self.forward_prop(X)
+            # Gradient descent with that output to adjust
+            # the weights and bias
             self.gradient_descent(X, Y, self.__A, alpha)
+            # Repeat until cooked :D
         return self.evaluate(X, Y)
