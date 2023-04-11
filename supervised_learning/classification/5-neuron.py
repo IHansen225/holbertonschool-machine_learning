@@ -110,8 +110,8 @@ class Neuron():
         # X is a np.ndarray with shape (nx, m) that contains the input data
         # Y contains the correct labels f0r the input data
         # A contains the activated output of the neuron f0r each example
-        ## A can't be changed because you can't touch neurons but you can
-        ## change the weights and bias
+        # A can't be changed because you can't touch neurons but you can
+        # change the weights and bias
         # m is the number of training examples
         m = Y.shape[1]
         # dz is the gradient of the cost with respect to z
