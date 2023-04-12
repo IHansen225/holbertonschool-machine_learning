@@ -170,9 +170,8 @@ class Neuron():
             self.gradient_descent(X, Y, self.__A, alpha)
             # Repeat until cooked :D
         if graph:
-            plt.plot(step_list, step_cost)
-            plt.xlabel("iteration")
-            plt.ylabel("cost")
-            plt.title("Training Cost")
+            fig, ax = plt.subplots()
+            ax.plot(step_cost, linewidth=2.5, color='red')
+            ax.set(xlim=iterations + 1, xticks=step_list)
             plt.show()
         return self.evaluate(X, Y)
