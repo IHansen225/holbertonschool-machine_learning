@@ -128,14 +128,14 @@ class NeuralNetwork():
         # Output layer calculations
         dz2 = A2 - Y
         dw2 = (1/m) * np.matmul(dz2, A1.T)
-        db2 = (1/m) * np.sum(dz2)
+        db2 = (1/m) * np.sum(dz2, axis=1, keepdims=True)
         # Hidden layer calculations
         # This part of the code is modular and
         # can be used f0r any number of hidden layers
         # configured correctly
         dz1 = np.matmul(self.__W2.T, dz2) * (1 - np.power(A1, 2))
         dw1 = (1/m) * np.matmul(dz1, X.T)
-        db1 = (1/m) * np.sum(dz1)
+        db1 = (1/m) * np.sum(dz1, axis=1, keepdims=True)
         self.__W2 = self.__W2 - alpha * dw2
         self.__b2 = self.__b2 - alpha * db2
         self.__W1 = self.__W1 - alpha * dw1
