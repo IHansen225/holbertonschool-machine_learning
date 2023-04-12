@@ -20,7 +20,7 @@ class NeuralNetwork():
             raise TypeError("nodes must be an integer")
         if nodes < 1:
             raise ValueError("nodes must be a positive integer")
-        # It's important to remember that neurons are just
+        # It's imp0rtant to remember that neurons are just
         # sets of matrices representing weights, activation values
         # and biases. They aren't always defined objects.
         # So, if you have a set of WBAs, you have a neuron :D
