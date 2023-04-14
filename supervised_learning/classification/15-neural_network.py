@@ -4,6 +4,7 @@
     for binary classification
 """
 import numpy as np
+import matplotlib as plt
 
 
 class NeuralNetwork():
@@ -141,7 +142,7 @@ class NeuralNetwork():
         self.__W1 = self.__W1 - alpha * dw1
         self.__b1 = self.__b1 - alpha * db1
 
-    def train(self, X, Y, iterations=5000, alpha=0.05):
+    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
         """
             Trains the neural network over
             a specified number of iterations
@@ -156,7 +157,25 @@ class NeuralNetwork():
             raise TypeError("alpha must be a float")
         if alpha < 0:
             raise ValueError("alpha must be positive")
+        if verbose or graph:
+            if not isinstance(step, int):
+                raise TypeError("step must be an integer")
+            if step < 1 or step > iterations:
+                raise ValueError("step must be positive and <= iterations")
+        if graph:
+            step_list = np.arange(0, iterations + 1, step)
+            step_cost = []
         for i in range(iterations):
+            cost = self.cost(Y, self.__A2)
+            if graph:
+                step_cost.append(cost)
+            if verbose and i % step == 0:
+                print(f"Cost after {i} iterations: {cost}")
             self.forward_prop(X)
             self.gradient_descent(X, Y, self.A1, self.A2, alpha)
+        if graph:
+            fig, ax = plt.subplots()
+            ax.plot(step_cost, linewidth=2.5, color='red')
+            ax.set(xlim=iterations + 1, xticks=step_list)
+            plt.show()
         return self.evaluate(X, Y)
