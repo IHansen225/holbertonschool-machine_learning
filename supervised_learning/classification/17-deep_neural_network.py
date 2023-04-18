@@ -30,7 +30,7 @@ class DeepNeuralNetwork():
             self.__weights[bN] = np.zeros((ly[lyr], 1))
             nnx = nx if lyr == 0 else ly[lyr - 1]
             wN = "W{}".format(lyr + 1)
-            self.__weights[wN] = np.random.randn(ly[lyr], nnx) * np.sqrt(2 / nnx)
+            self.__weights[wN] = np.random.randn(ly[lyr],nnx)*np.sqrt(2 / nnx)
 
     @property
     def L(self):
