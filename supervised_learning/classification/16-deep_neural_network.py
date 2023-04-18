@@ -26,7 +26,7 @@ class DeepNeuralNetwork():
         self.cache = {}
         self.weights = {}
         for layer in range(self.L):
-            weightName = f"W{layer}"
-            biasName = f"b{layer}"
+            weightName = "W{}".format(layer)
+            biasName = "b{}".format(layer)
             self.weights[biasName] = np.zeros((layers[layer], 1))
             self.weights[weightName] = np.random.randn(layers[layer], nx) * np.sqrt(2 / nx)
