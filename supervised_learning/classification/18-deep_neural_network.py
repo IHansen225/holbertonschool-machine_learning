@@ -73,10 +73,17 @@ class DeepNeuralNetwork():
             of the neural network.
         """
         self.__cache["A0"] = x
+        # This replicates what's done in the neural network class
+        # but f0r every layer existing in the deep neural network.
+        # This means that this code is modular and can be used
+        # in any other neural network, no matter the number of layers.
         for lyr in range(self.__L):
             wN = "W{}".format(lyr + 1)
             bN = "b{}".format(lyr + 1)
             aN = "A{}".format(lyr + 1)
+            # This line and the next go together but the damn pycodesyle
+            # does not allow long lines :D
+            # This is basically the sigmoid function.
             pz = np.matmul(self.weights[wN], self.cache["A{}".format(lyr)])
             z = pz + self.weights[bN]
             self.__cache[aN] = 1 / (1 + np.exp(-z))
