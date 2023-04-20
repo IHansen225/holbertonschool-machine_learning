@@ -5,6 +5,7 @@
     implementation.
 """
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class DeepNeuralNetwork():
@@ -137,7 +138,7 @@ class DeepNeuralNetwork():
             self.__weights[wN] = self.weights[wN] - alpha * dw
             self.__weights[bN] = self.weights[bN] - alpha * db
 
-    def train(self, X, Y, iterations=5000, alpha=0.05):
+    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
         """
             Trains the deep neural network.
         """
@@ -149,6 +150,25 @@ class DeepNeuralNetwork():
             raise TypeError("alpha must be a float")
         if alpha <= 0:
             raise ValueError("alpha must be positive")
+        if verbose or graph:
+            if not isinstance(step, int):
+                raise TypeError("step must be an integer")
+            if step < 1 or step > iterations:
+                raise ValueError("step must be positive and <= iterations")
+        if graph:
+            step_list = np.arange(0, iterations + 1, step)
+            step_cost = []
         for example in range(iterations):
-            self.gradient_descent(Y, self.forward_prop(X)[1], alpha)
+            aN, cache = self.forward_prop(X)
+            cost = self.cost(Y, aN)
+            if graph:
+                step_cost.append(cost)
+            if verbose and example % step == 0:
+                print(f"Cost after {example} iterations: {cost}")
+            self.gradient_descent(Y, cache, alpha)
+        if graph:
+            fig, ax = plt.subplots()
+            ax.plot(step_cost, linewidth=2.5, color='red')
+            ax.set(xlim=iterations + 1, xticks=step_list)
+            plt.show()
         return self.evaluate(X, Y)
