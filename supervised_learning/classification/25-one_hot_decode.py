@@ -14,4 +14,4 @@ def one_hot_decode(oh):
         return None
     if oh.size == 0:
         return None
-    return np.argmax(oh, axis=0)
+    return np.apply_along_axis(lambda row: np.argmax(row), axis=1, arr=oh)
