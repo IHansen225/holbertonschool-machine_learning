@@ -139,14 +139,14 @@ class DeepNeuralNetwork():
             self.__weights[wN] = self.weights[wN] - alpha * dw
             self.__weights[bN] = self.weights[bN] - alpha * db
 
-    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
+    def train(self, X, Y, i=5000, alpha=0.05, verbose=True, graph=True, step=100):
         """
             Trains the deep neural network.
         """
-        if not isinstance(iterations, int):
-            raise TypeError("iterations must be an integer")
-        if iterations <= 0:
-            raise ValueError("iterations must be a positive integer")
+        if not isinstance(i, int):
+            raise TypeError("i must be an integer")
+        if i <= 0:
+            raise ValueError("i must be a positive integer")
         if not isinstance(alpha, float):
             raise TypeError("alpha must be a float")
         if alpha <= 0:
@@ -154,23 +154,23 @@ class DeepNeuralNetwork():
         if verbose or graph:
             if not isinstance(step, int):
                 raise TypeError("step must be an integer")
-            if step < 1 or step > iterations:
-                raise ValueError("step must be positive and <= iterations")
+            if step < 1 or step > i:
+                raise ValueError("step must be positive and <= i")
         if graph:
-            step_list = np.arange(0, iterations + 1, step)
+            step_list = np.arange(0, i + 1, step)
             step_cost = []
-        for example in range(iterations):
+        for example in range(i):
             aN, cache = self.forward_prop(X)
             cost = self.cost(Y, aN)
             if graph:
                 step_cost.append(cost)
             if verbose and example % step == 0:
-                print("Cost after {} iterations: {}".format(example, cost))
+                print("Cost after {} i: {}".format(example, cost))
             self.gradient_descent(Y, cache, alpha)
         if graph:
             fig, ax = plt.subplots()
             ax.plot(step_cost, linewidth=2.5, color='red')
-            ax.set(xlim=iterations + 1, xticks=step_list)
+            ax.set(xlim=i + 1, xticks=step_list)
             plt.show()
         return self.evaluate(X, Y)
 
