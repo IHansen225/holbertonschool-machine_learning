@@ -165,7 +165,7 @@ class DeepNeuralNetwork():
             if graph:
                 step_cost.append(cost)
             if verbose and example % step == 0:
-                print(f"Cost after {example} iterations: {cost}")
+                print("Cost after {} iterations: {}".format(example, cost))
             self.gradient_descent(Y, cache, alpha)
         if graph:
             fig, ax = plt.subplots()
