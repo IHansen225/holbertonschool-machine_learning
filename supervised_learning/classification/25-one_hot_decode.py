@@ -13,7 +13,7 @@ def one_hot_decode(oh):
     try:
         if oh.ndim != 2:
             return None
-        ret = np.apply_along_axis(lambda row: np.argmax(row), axis=1, arr=oh)
+        ret = np.apply_along_axis(lambda row: np.argmax(row), axis=0, arr=oh)
         return ret
     except Exception:
         return None
