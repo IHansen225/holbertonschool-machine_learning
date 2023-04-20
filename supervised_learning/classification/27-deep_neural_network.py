@@ -79,7 +79,7 @@ class DeepNeuralNetwork():
         # but f0r every layer existing in the deep neural network.
         # This means that this code is modular and can be used
         # in any other neural network, no matter the number of layers.
-        for lyr in range(1, self.__L + 1):
+        for lyr in range(self.__L):
             wN = "W{}".format(lyr + 1)
             bN = "b{}".format(lyr + 1)
             aN = "A{}".format(lyr + 1)
