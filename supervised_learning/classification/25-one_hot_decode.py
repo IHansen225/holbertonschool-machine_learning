@@ -11,6 +11,9 @@ def one_hot_decode(oh):
         of a numeric label vector.
     """
     try:
+        if oh.ndim != 2:
+            return None
         ret = np.apply_along_axis(lambda row: np.argmax(row), axis=1, arr=oh)
+        return ret
     except Exception:
         return None
