@@ -184,7 +184,7 @@ class DeepNeuralNetwork():
         with open(filename, "wb") as f:
             pickle.dump(self, f)
 
-    def load(self, filename):
+    def load(filename):
         """
             Loads a pickled DNN instance.
         """
