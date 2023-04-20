@@ -131,7 +131,7 @@ class DeepNeuralNetwork():
             # we need to iterate over all of them.
             dw = 1 / m * np.matmul(dz, cache[aN].T)
             db = 1 / m * np.sum(dz, axis=1, keepdims=True)
-            dz = np.matmul(self.weights[wN].T, dz) * (cache[aN] * (1 - cache[aN]))
+            dz = np.matmul(self.weights[wN].T, dz)*(cache[aN]*(1 - cache[aN]))
             # Change each weight and bias, one time
             # per iteration.
             self.__weights[wN] = self.weights[wN] - alpha * dw
