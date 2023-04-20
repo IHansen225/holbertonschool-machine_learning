@@ -14,6 +14,4 @@ def one_hot_decode(oh):
         return None
     if oh.size == 0:
         return None
-    if not np.all(np.sum(oh, axis=1) == 1):
-        return None
     return np.argmax(oh, axis=0)
