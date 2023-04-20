@@ -10,8 +10,10 @@ def one_hot_decode(oh):
         Returns a one-hot decoded version
         of a numeric label vector.
     """
-    if not isinstance(oh, np.ndarray) or len(oh) == 0:
+    if not isinstance(oh, np.ndarray):
         return None
-    if not np.any(oh == 1, axis=0).all():
+    if oh.size == 0:
+        return None
+    if not np.all(np.sum(oh, axis=1) == 1):
         return None
     return np.argmax(oh, axis=1)
