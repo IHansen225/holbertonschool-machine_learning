@@ -77,6 +77,6 @@ class DeepNeuralNetwork():
             wN = "W{}".format(lyr + 1)
             bN = "b{}".format(lyr + 1)
             aN = "A{}".format(lyr + 1)
-            z = np.matmul(self.__weights[wN], self.__cache["A{}".format(lyr)]) + self.__weights[bN]
+            z = np.matmul(self.weights[wN], self.cache["A{}".format(lyr)]) + self.weights[bN]
             self.__cache[aN] = 1 / (1 + np.exp(-z))
         return self.__cache[aN], self.__cache
