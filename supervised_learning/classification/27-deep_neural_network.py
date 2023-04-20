@@ -79,16 +79,17 @@ class DeepNeuralNetwork():
         # but f0r every layer existing in the deep neural network.
         # This means that this code is modular and can be used
         # in any other neural network, no matter the number of layers.
-        for lyr in range(self.__L):
-            wN = "W{}".format(lyr + 1)
-            bN = "b{}".format(lyr + 1)
-            aN = "A{}".format(lyr + 1)
-            # This line and the next go together but the damn pycodesyle
-            # does not allow long lines :D
-            # This is basically the sigmoid function.
-            pz = np.matmul(self.weights[wN], self.cache["A{}".format(lyr)])
-            z = pz + self.weights[bN]
-            self.__cache[aN] = 1 / (1 + np.exp(-z))
+        for lyr in range(1, self.__L + 1):
+            aN = self.cache["A" + str(lyr - 1)]
+            wN = self.weights["W" + str(lyr)]
+            bN = self.weights["b" + str(lyr)]
+            Z = np.dot(wN, aN) + bN
+            if lyr == self.L:
+                t = np.exp(Z)
+                A = t / sum(t)
+            else:
+                A = 1/(1 + np.exp(-Z))
+            self.__cache["A" + str(lyr)] = A
         return self.__cache[aN], self.__cache
 
     def cost(self, Y, A):
