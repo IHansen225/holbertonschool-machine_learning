@@ -2,7 +2,6 @@
 """
     Momentum optimization module.
 """
-import numpy as np
 import tensorflow as tf
 
 def create_momentum_op(loss, alpha, beta1):
