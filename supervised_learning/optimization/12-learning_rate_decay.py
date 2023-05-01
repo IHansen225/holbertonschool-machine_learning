@@ -10,4 +10,10 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
     """
         Updates the learning rate using inverse time decay.
     """
-    return alpha / (1 + decay_rate * np.floor(global_step / decay_step))
+    return tf.train.inverse_time_decay(
+        learning_rate=alpha,
+        global_step=global_step,
+        decay_steps=decay_step,
+        decay_rate=decay_rate,
+        staircase=True
+    )
