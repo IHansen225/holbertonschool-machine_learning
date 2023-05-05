@@ -3,7 +3,6 @@
     L2 Regularization gradient
     descent module.
 """
-import numpy as np
 import tensorflow as tf
 
 
