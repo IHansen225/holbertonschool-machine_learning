@@ -7,6 +7,11 @@ import numpy as np
 
 
 def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
+    """
+        Computes one pass of gradient
+        descent on a neural network
+        with L2 regularization.
+    """
     m = Y.shape[1]
     dZ = cache['A' + str(L)] - Y
     for l in range(L, 0, -1):
