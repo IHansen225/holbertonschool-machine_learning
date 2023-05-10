@@ -17,7 +17,7 @@ def train_model(network, data, labels, batch, ep,
     if validation_data is not None:
         if early_stopping:
             cb.append(K.callbacks.EarlyStopping(monitor='val_loss',
-                                            patience=patience))
+                                                patience=patience))
         if learning_rate_decay:
             def scheduler(epoch):
                 """ Scheduler function. """
