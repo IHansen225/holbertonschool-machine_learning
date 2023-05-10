@@ -9,11 +9,11 @@ def train_model(network, data, labels, batch, ep,
                 validation_data=None, early_stopping=False,
                 patience=0, learning_rate_decay=False,
                 alpha=0.1, decay_rate=1, verbose=True,
-                shuffle=False): 
+                shuffle=False):
     """
         Trains a model using mini-batch gradient descent.
     """
-    cb = None
+    cb = []]
     if validation_data is not None:
         if early_stopping:
             cb = [K.callbacks.EarlyStopping(monitor='val_loss',
