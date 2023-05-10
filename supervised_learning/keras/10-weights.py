@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+"""
+    Keras training module.
+"""
+import tensorflow.keras as K
+
+
+def save_weights(network, filename, save_format='h5'):
+    """ saves the model's weights """
+    network.save_weights(filename, save_format=save_format)
+    return None
+
+
+def load_weights(network, filename):
+    """ loads the model's weights """
+    network.load_weights(filename)
+    return None
