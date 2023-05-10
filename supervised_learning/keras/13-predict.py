@@ -5,7 +5,7 @@
 import tensorflow.keras as K
 
 
-def predict(network, data, verbose=False): 
+def predict(network, data, verbose=False):
     """
         Tests a neural network.
     """
