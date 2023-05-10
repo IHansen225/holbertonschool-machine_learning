@@ -13,11 +13,11 @@ def train_model(network, data, labels, batch, ep,
     """
         Trains a model using mini-batch gradient descent.
     """
-    cb = []]
+    cb = []
     if validation_data is not None:
         if early_stopping:
-            cb = [K.callbacks.EarlyStopping(monitor='val_loss',
-                                            patience=patience)]
+            cb.append(K.callbacks.EarlyStopping(monitor='val_loss',
+                                            patience=patience))
         if learning_rate_decay:
             def scheduler(epoch):
                 """ Scheduler function. """
