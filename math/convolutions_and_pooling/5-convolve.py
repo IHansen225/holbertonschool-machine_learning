@@ -25,11 +25,11 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
                         mode='constant')
     output_h = int(((h + (2 * ph) - kh) / stride[0]) + 1)
     output_w = int(((w + (2 * pw) - kw) / stride[1]) + 1)
-    output = np.zeros((m * nc, output_h, output_w))
+    output = np.zeros((m, output_h, output_w, nc))
     for x in range(nc):
         for i in range(output_h):
             for j in range(output_w):
-                output[x, i, j] = (
+                output[:, i, j, x] = (
                     kernels[x] * images[
                         :,
                         i * stride[0]: i * stride[0] + kh,
