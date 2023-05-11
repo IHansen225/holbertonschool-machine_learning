@@ -2,7 +2,7 @@
 """
     Early stopping.
 """
-import tensorflow as tf
+import numpy as np
 
 
 def early_stopping(cost, opt_cost, threshold, patience, count):
