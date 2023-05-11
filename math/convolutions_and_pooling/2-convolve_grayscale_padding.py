@@ -5,7 +5,7 @@
 import numpy as np
 
 
-def convolve_grayscale_padding(images, kernel, padding):
+def convolve_grayscale_padding(images, kernel, pad):
     """
         Returns: a numpy.ndarray containing the convolved images
         using the same convolution method.
@@ -17,13 +17,13 @@ def convolve_grayscale_padding(images, kernel, padding):
     # output_h, output_w is the output resolution
     # generally it's h - kh + 1, w - kw + 1
     # but for same convolution, it's h and w
-    output_h = h + (2 * padding[0]) - kh + 1
-    output_w = w + (2 * padding[1]) - kw + 1
+    output_h = h + (2 * pad[0]) - kh + 1
+    output_w = w + (2 * pad[1]) - kw + 1
     # pad the images with zeros on the height and width
     # in case of odd kernel (which is apparently
     # rare but it happens according to the internet)
     padded_images = np.pad(images, ((
-        0, 0), (padding[0], padding[0]), (padding[1], padding[1])), mode='constant')
+        0, 0), (pad[0], pad[0]), (pad[1], pad[1])), mode='constant')
     # output is the output matrix, with m elements
     # of output_h * output_w size
     output = np.zeros((m, output_h, output_w))
