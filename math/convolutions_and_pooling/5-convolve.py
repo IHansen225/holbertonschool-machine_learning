@@ -20,17 +20,17 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     elif padding == 'same':
         ph = int(((h - 1) * stride[0] + kh - h) / 2) + 1
         pw = int(((w - 1) * stride[1] + kw - w) / 2) + 1
-    if ph and pw:
-        images = np.pad(images, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
-                        mode='constant')
+    images = np.pad(images, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                    mode='constant')
     output_h = int(((h + (2 * ph) - kh) / stride[0]) + 1)
     output_w = int(((w + (2 * pw) - kw) / stride[1]) + 1)
     output = np.zeros((m, output_h, output_w, nc))
     for x in range(nc):
+        kernel = kernels[:, :, :, x]
         for i in range(output_h):
             for j in range(output_w):
                 output[:, i, j, x] = (
-                    kernels[x] * images[
+                    kernel * images[
                         :,
                         i * stride[0]: i * stride[0] + kh,
                         j * stride[1]: j * stride[1] + kw,
