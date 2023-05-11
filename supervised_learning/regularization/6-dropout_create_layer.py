@@ -9,6 +9,8 @@ def dropout_create_layer(prev, n, activation, keep_prob):
     """
         Creates a Dropout layer.
     """
-    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
-    layer = tf.layers.Dropout(keep_prob)
-    return layer(prev)
+    w = tf.Variable(tf.random.normal([prev.shape[1], n]))
+    b = tf.Variable(tf.zeros([n]))
+    prev_drop = tf.nn.dropout(prev, rate=1-keep_prob)
+    layer = activation(tf.matmul(prev_drop, w) + b)
+    return layer
