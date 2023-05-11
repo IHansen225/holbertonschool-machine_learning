@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-    Performs valid same convolution on grayscale images.
+    Performs convolution on RGB images.
 """
 import numpy as np
 
 
 def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     """
-    Returns: a numpy.ndarray containing the convolved images
-    using the same convolution method.
+    Returns: a numpy.ndarray containing the convolved images.
     """
     # Same as 3-convolve_grayscale.py but with channels
     # Basically same thing but 3D
