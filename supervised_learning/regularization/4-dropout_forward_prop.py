@@ -11,20 +11,19 @@ def dropout_forward_prop(X, weights, L, keep_prob):
         Conducts forward propagation using Dropout.
     """
     aux = {}
-    aux['A0'] = X
-    for i in range(L):
-        key = 'A' + str(i)
-        keyW = 'W' + str(i + 1)
-        keyb = 'b' + str(i + 1)
-        keyA = 'A' + str(i + 1)
-        Z = np.matmul(weights[keyW], aux[key]) + weights[keyb]
-        if i == L - 1:
-            t = np.exp(Z)
-            aux[keyA] = t / np.sum(t, axis=0, keepdims=True)
-        else:
-            aux[keyA] = np.tanh(Z)
-            aux[keyA] = np.multiply(np.random.rand(
-                aux[keyA].shape[0], aux[keyA].shape[1]) < keep_prob,
-                                      aux[keyA])
-            aux[keyA] /= keep_prob
+    A = X
+    for l in range(1, L):
+        A_prev = A
+        Z = np.dot(weights['W' + str(l)], A_prev) + weights['b' + str(l)]
+        A = np.tanh(Z)
+        D = np.random.rand(A.shape[0], A.shape[1]) < keep_prob
+        A *= D
+        A /= keep_prob
+        aux['Z' + str(l)] = Z
+        aux['D' + str(l)] = D
+        aux['A' + str(l)] = A
+    Z = np.dot(weights['W' + str(L)], A) + weights['b' + str(L)]
+    A = np.exp(Z) / np.sum(np.exp(Z), axis=0)
+    aux['Z' + str(L)] = Z
+    aux['A' + str(L)] = A
     return aux

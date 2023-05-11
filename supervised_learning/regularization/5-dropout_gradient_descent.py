@@ -11,22 +11,20 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
         Conducts forward propagation using Dropout.
     """
     m = Y.shape[1]
-    aux = {}
-    aux['A' + str(L)] = cache['A' + str(L)] - Y
-    for i in range(L, 0, -1):
-        kA = 'A' + str(i - 1)
-        kA_ = 'A' + str(i)
-        kW = 'W' + str(i)
-        kb = 'b' + str(i)
-        kdW = 'dW' + str(i)
-        kdb = 'db' + str(i)
-        kdA = 'dA' + str(i - 1)
-        dZ = aux[kA_] * (1 - cache[kA_] ** 2)
-        dZ = np.multiply(dZ, cache['D' + str(i)])
-        dZ /= keep_prob
-        aux[kdW] = np.matmul(dZ, aux[kA].T) / m
-        aux[kdb] = np.sum(dZ, axis=1, keepdims=True) / m
-        aux[kdA] = np.matmul(weights[kW].T, dZ)
-        weights[kW] -= alpha * aux[kdW]
-        weights[kb] -= alpha * aux[kdb]
+    dZ = cache['A' + str(L)] - Y
+    for l in reversed(range(1, L + 1)):
+        A_prev = cache['A' + str(l - 1)]
+        A = cache['A' + str(l)]
+        w = weights['W' + str(l)]
+        b = weights['b' + str(l)]
+        dA = np.dot(w.T, dZ)
+        dA *= (A > 0)
+        dA /= keep_prob 
+        dW = np.dot(dZ, A_prev.T) / m
+        db = np.sum(dZ, axis=1, keepdims=True) / m
+        w -= alpha * dW
+        b -= alpha * db
+        dZ = dA
+    weights['W1'] = w
+    weights['b1'] = b
     return weights
