@@ -20,9 +20,10 @@ def convolve_grayscale_padding(images, kernel, padding):
     output_h = h + (2 * padding[0]) - kh + 1
     output_w = w + (2 * padding[1]) - kw + 1
     # pad the images with zeros on the height and width
-    # in case of odd kernel (which is apparently 
+    # in case of odd kernel (which is apparently
     # rare but it happens according to the internet)
-    padded_images = np.pad(images, ((0, 0), (padding[0], padding[0]), (padding[1], padding[1])), mode='constant')
+    padded_images = np.pad(images, ((
+        0, 0), (padding[0], padding[0]), (padding[1], padding[1])), mode='constant')
     # output is the output matrix, with m elements
     # of output_h * output_w size
     output = np.zeros((m, output_h, output_w))
