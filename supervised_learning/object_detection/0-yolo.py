@@ -3,7 +3,6 @@
     Yolo class module v0
 """
 import numpy as np
-import cv2
 import tensorflow.keras as K
 
 
