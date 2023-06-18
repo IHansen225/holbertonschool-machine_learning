@@ -50,8 +50,8 @@ class Yolo():
             t_h = box[..., 3]
             p_w = self.anchors[i, :, 0]
             p_h = self.anchors[i, :, 1]
-            bx = (sigmoid(t_x) + cx) / gr_w
-            by = (sigmoid(t_y) + cy) / gr_h
+            bx = (self.sigmoid(t_x) + cx) / gr_w
+            by = (self.sigmoid(t_y) + cy) / gr_h
             bw = (np.exp(t_w) * p_w) / self.model.input.shape[1].value
             bh = (np.exp(t_h) * p_h) / self.model.input.shape[2].value
             tl_x = bx - bw / 2
