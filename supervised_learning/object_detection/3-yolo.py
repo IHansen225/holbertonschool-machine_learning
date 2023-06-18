@@ -90,4 +90,49 @@ class Yolo():
         """
             Perform non-max suppression
         """
-        
+        box_scores = list(box_scores)
+        box_predictions = []
+        predicted_box_classes = []
+        predicted_box_scores = []
+
+        for cls in np.unique(box_classes):
+            cls_indices = np.where(box_classes == cls)[0]
+            cls_scores = [box_scores[i] for i in cls_indices]
+            cls_boxes = filtered_boxes[cls_indices]
+
+            sorted_indices = np.argsort(cls_scores)[::-1]
+            sorted_scores = [cls_scores[i] for i in sorted_indices]
+            sorted_boxes = cls_boxes[sorted_indices]
+
+            keep_indices = []
+            while sorted_indices:
+                best_idx = sorted_indices[0]
+                best_box = sorted_boxes[0]
+                box_predictions.append(best_box)
+                predicted_box_classes.append(cls)
+                predicted_box_scores.append(sorted_scores[0])
+
+                iou = self.iou(best_box, sorted_boxes[1:])
+                low_iou_indices = np.where(iou < self.iou_threshold)[0]
+                sorted_indices = np.delete(sorted_indices, low_iou_indices + 1)
+                sorted_scores = np.delete(sorted_scores, low_iou_indices + 1)
+                sorted_boxes = np.delete(sorted_boxes, low_iou_indices + 1, axis=0)
+
+            box_predictions = np.array(box_predictions)
+            predicted_box_classes = np.array(predicted_box_classes)
+            predicted_box_scores = np.array(predicted_box_scores)
+
+        return box_predictions, predicted_box_classes, predicted_box_scores
+
+    def iou(self, box, boxes):
+        x1 = np.maximum(box[0], boxes[:, 0])
+        y1 = np.maximum(box[1], boxes[:, 1])
+        x2 = np.minimum(box[2], boxes[:, 2])
+        y2 = np.minimum(box[3], boxes[:, 3])
+
+        intersection_area = np.maximum(0, x2 - x1 + 1) * np.maximum(0, y2 - y1 + 1)
+        box_area = (box[2] - box[0] + 1) * (box[3] - box[1] + 1)
+        boxes_area = (boxes[:, 2] - boxes[:, 0] + 1) * (boxes[:, 3] - boxes[:, 1] + 1)
+
+        iou = intersection_area / (box_area + boxes_area - intersection_area)
+        return iou
