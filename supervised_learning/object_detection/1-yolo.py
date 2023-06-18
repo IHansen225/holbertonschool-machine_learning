@@ -22,18 +22,24 @@ class Yolo():
         self.nms_t = nms_t
         self.anchors = anchors
 
+    def sigmoid(self, x):
+        """
+            sigmoid function
+        """
+        return 1 / (1 + np.exp(-x))
+
     def process_outputs(self, outputs, image_size):
         """
             Process Darknet outputs
         """
         boxes = []
-        box_confidences = []
-        box_class_probs = []
+        conf = []
+        probs = []
         img_h, img_w = image_size
         for output in outputs:
             boxes.append(output[..., 0:4])
-            box_confidences.append(sigmoid(output[..., 4, np.newaxis]))
-            box_class_probs.append(sigmoid(output[..., 5:]))
+            conf.append(self.sigmoid(output[..., 4, np.newaxis]))
+            probs.append(self.sigmoid(output[..., 5:]))
         for i, box in enumerate(boxes):
             gr_h, gr_w, anchors_boxes, _ = box.shape
             cx = np.indices((gr_h, gr_w, anchors_boxes))[1]
@@ -56,4 +62,4 @@ class Yolo():
             box[..., 1] = tl_y * img_h
             box[..., 2] = br_x * img_w
             box[..., 3] = br_y * img_h
-        return boxes, box_confidences, box_class_probs
+        return boxes, conf, probs
