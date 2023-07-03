@@ -106,7 +106,7 @@ class Yolo():
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
                     images.append(image)
                     image_paths.append(file_path)
-                except:
+                except Exception:
                     pass
 
         return images, image_paths
