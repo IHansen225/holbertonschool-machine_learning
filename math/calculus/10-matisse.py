@@ -8,17 +8,14 @@ def poly_derivative(poly):
     """
         Returns the derivative of the given poly
     """
-    if not isinstance(poly, list):
+    if type(poly) is not list or len(poly) == 0:
         return None
-    if not all(isinstance(c, (int, float)) for c in poly):
-        return None
-    if len(poly) == 1:
-        return [0]
-    derivative = [0] * (len(poly) - 1)
+    for i in poly:
+        if type(i) is not int and type(i) is not float:
+            return None
+    derivative = []
     for i in range(1, len(poly)):
-        power = i
-        coeff = poly[i]
-        derivative[power - 1] = power * coeff
-    while derivative and derivative[-1] == 0:
-        derivative.pop()
+        derivative.append(poly[i] * i)
+    if derivative == []:
+        derivative.append(0)
     return derivative
