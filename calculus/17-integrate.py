@@ -8,20 +8,17 @@ def poly_integral(poly, C=0):
     """
         Returns the integral of the given poly
     """
-    if not isinstance(poly, list):
+    if type(poly) is not list or len(poly) == 0 or type(C) is not int:
         return None
-    if not all(isinstance(c, (int, float)) for c in poly):
-        return None
-
+    for i in poly:
+        if type(i) is not int and type(i) is not float:
+            return None
     integral = [C]
     for i in range(len(poly)):
-        coeff = poly[i] / (i + 1)
-        if coeff.is_integer():
-            coeff = int(coeff)
-        integral.append(coeff)
-
-    # Remove trailing zeros (if any)
-    while integral and integral[-1] == 0:
+        if poly[i] % (i + 1) == 0:
+            integral.append(poly[i] // (i + 1))
+        else:
+            integral.append(poly[i] / (i + 1))
+    while integral[-1] == 0 and len(integral) > 1:
         integral.pop()
-
     return integral
