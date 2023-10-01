@@ -3,7 +3,7 @@
     L2 Regularization gradient
     descent module.
 """
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def l2_reg_cost(cost):
