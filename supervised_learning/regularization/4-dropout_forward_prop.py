@@ -10,20 +10,20 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     """
         Conducts forward propagation using Dropout.
     """
-    aux = {}
-    A = X
-    for l in range(1, L):
-        A_prev = A
-        Z = np.dot(weights['W' + str(l)], A_prev) + weights['b' + str(l)]
-        A = np.tanh(Z)
-        D = np.random.rand(A.shape[0], A.shape[1]) < keep_prob
-        A *= D
-        A /= keep_prob
-        aux['Z' + str(l)] = Z
-        aux['D' + str(l)] = D
-        aux['A' + str(l)] = A
-    Z = np.dot(weights['W' + str(L)], A) + weights['b' + str(L)]
-    A = np.exp(Z) / np.sum(np.exp(Z), axis=0)
-    aux['Z' + str(L)] = Z
-    aux['A' + str(L)] = A
-    return aux
+    cache = {}
+    cache['A0'] = X
+    for i in range(L):
+        A = cache['A' + str(i)]
+        W = weights['W' + str(i + 1)]
+        b = weights['b' + str(i + 1)]
+        Z = np.matmul(W, A) + b
+        if i == L - 1:
+            t = np.exp(Z)
+            cache['A' + str(i + 1)] = t / np.sum(t, axis=0, keepdims=True)
+        else:
+            cache['A' + str(i + 1)] = np.tanh(Z)
+            cache['D' + str(i + 1)] = np.random.binomial(1, keep_prob,
+                                                         size=Z.shape)
+            cache['A' + str(i + 1)] *= cache['D' + str(i + 1)]
+            cache['A' + str(i + 1)] /= keep_prob
+    return cache
