@@ -23,7 +23,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
         pw = 0
 
     A_prev = np.pad(
-        A_prev, ((0, 0), (ph, ph), (pw, pw), (0, 0)), "constant", constant_values=0
+        A_prev, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+        "constant", constant_values=0
     )
 
     h_padded = h_prev + 2 * ph
@@ -37,7 +38,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
             for k in range(c_new):
                 conv[:, i, j, k] = np.sum(
                     (
-                        A_prev[:, i * sh : i * sh + kh, j * sw : j * sw + kw]
+                        A_prev[:, i * sh: i * sh + kh, j * sw: j * sw + kw]
                         * W[:, :, :, k]
                     ),
                     axis=(1, 2, 3),
