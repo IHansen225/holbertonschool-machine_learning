@@ -20,8 +20,8 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode="max"):
     conv = np.zeros((m, ch, cw, c_prev))
     for i in range(ch):
         for j in range(cw):
-            conv[:, i, j] = np.max(
-                (A_prev[:, i * sh : i * sh + kh, j * sw : j * sw + kw]),
+            conv[:, i, j] = np.mean(
+                (A_prev[:, i * sh: i * sh + kh, j * sw: j * sw + kw]),
                 axis=(1, 2),
             )
     return conv
