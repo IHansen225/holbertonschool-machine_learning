@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 
+"""
     Convolutional forward
     propagation module
     for pooling layer.
