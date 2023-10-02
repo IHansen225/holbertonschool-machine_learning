@@ -39,7 +39,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     dZ[:, i, j, k].reshape(-1, 1, 1, 1) * W[:, :, :, k]
                 )
                 dW[:, :, :, k] += A_prev[
-                    :, i * sh: i * sh + kh, j * sw: j * sw + kw
+                    :, i * sh: i * sh + kh, j * sw: j * sw + kw, :
                 ] * dZ[:, i, j, k].reshape(-1, 1, 1, 1)
                 db[:, :, :, k] += dZ[:, i, j, k]
 
