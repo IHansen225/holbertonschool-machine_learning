@@ -11,41 +11,51 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     Convolutional backward
     propagation pass.
     """
+    m, h_new, w_new, c_new = dZ.shape
     m, h_prev, w_prev, c_prev = A_prev.shape
-    kh, kw, c_prev, c_new = W.shape
+    kh, kw, _, _ = W.shape
     sh, sw = stride
 
+    # Initialize the derivatives with respect to the previous layer,
+    # kernels, and biases
+    dA_prev = np.zeros_like(A_prev)
+    dW = np.zeros_like(W)
+    db = np.zeros_like(b)
+
     if padding == "same":
-        ph = max((h_prev - 1) * sh + kh - h_prev, 0) // 2
-        pw = max((w_prev - 1) * sw + kw - w_prev, 0) // 2
+        pad_h = int(np.ceil((h_prev * sh - h_new + kh - sh) / 2))
+        pad_w = int(np.ceil((w_prev * sw - w_new + kw - sw) / 2))
+        A_prev_pad = np.pad(A_prev, ((0, 0), (pad_h, pad_h),
+                                     (pad_w, pad_w), (0, 0)), mode="constant")
     elif padding == "valid":
-        ph = 0
-        pw = 0
+        pad_h = pad_w = 0
+        A_prev_pad = A_prev
 
-    A_prev = np.pad(A_prev, ((0, 0), (ph, ph), (pw, pw),
-                    (0, 0)), "constant", constant_values=0)
+    for i in range(m):
+        a_prev_pad = A_prev_pad[i]
+        dA_prev_pad = np.zeros_like(a_prev_pad)
 
-    ch = int(((h_prev + 2 * ph - kh) / sh) + 1)
-    cw = int(((w_prev + 2 * pw - kw) / sw) + 1)
+        for h in range(h_new):
+            for w in range(w_new):
+                for c in range(c_new):
+                    vert_start = h * sh
+                    vert_end = vert_start + kh
+                    horiz_start = w * sw
+                    horiz_end = horiz_start + kw
 
-    dA_prev = np.zeros((m, h_prev, w_prev, c_prev))
-    dW = np.zeros((kh, kw, c_prev, c_new))
-    db = np.zeros((1, 1, 1, c_new))
+                    a_slice = a_prev_pad[vert_start:vert_end,
+                                         horiz_start:horiz_end, :]
 
-    for i in range(ch):
-        for j in range(cw):
-            for k in range(c_new):
-                dA_prev[:, i * sh: min(i * sh + kh, h_prev), j * sw: min(j * sw + kw, w_prev), :] += (
-                    dZ[:, i, j, k, np.newaxis, np.newaxis,
-                        np.newaxis] * W[:, :, :, k]
-                )
-                dW[:, :, :, k] += np.sum(
-                    A_prev[:, i * sh: min(i * sh + kh, h_prev), j * sw: min(j * sw + kw, w_prev), :] *
-                    dZ[:, i, j, k, np.newaxis, np.newaxis, np.newaxis], axis=0
-                )
-                db[:, :, :, k] += np.sum(dZ[:, i, j, k], axis=0)
+                    dA_prev_pad[vert_start:vert_end,
+                                horiz_start:horiz_end,
+                                :] += W[:, :, :, c] * dZ[i, h, w, c]
+                    dW[:, :, :, c] += a_slice * dZ[i, h, w, c]
+                    db[:, :, :, c] += dZ[i, h, w, c]
 
-    if padding == "same":
-        dA_prev = dA_prev[:, ph: h_prev + ph, pw: w_prev + pw, :]
+        if padding == "same":
+            dA_prev[i, :, :, :] = dA_prev_pad[pad_h:h_prev + pad_h,
+                                              pad_w:w_prev + pad_w, :]
+        elif padding == "valid":
+            dA_prev[i, :, :, :] = dA_prev_pad
 
     return dA_prev, dW, db
