@@ -35,11 +35,12 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     for i in range(ch):
         for j in range(cw):
             for k in range(c_new):
-                dA_prev[:, i * sh: i * sh + kh, j * sw: j * sw + kw, :] += (
-                    dZ[:, i, j, k, np.newaxis, np.newaxis, np.newaxis] * W[:, :, :, k]
+                dA_prev[:, i * sh: min(i * sh + kh, h_prev), j * sw: min(j * sw + kw, w_prev), :] += (
+                    dZ[:, i, j, k, np.newaxis, np.newaxis,
+                        np.newaxis] * W[:, :, :, k]
                 )
                 dW[:, :, :, k] += np.sum(
-                    A_prev[:, i * sh: i * sh + kh, j * sw: j * sw + kw, :] * 
+                    A_prev[:, i * sh: min(i * sh + kh, h_prev), j * sw: min(j * sw + kw, w_prev), :] *
                     dZ[:, i, j, k, np.newaxis, np.newaxis, np.newaxis], axis=0
                 )
                 db[:, :, :, k] += np.sum(dZ[:, i, j, k], axis=0)
