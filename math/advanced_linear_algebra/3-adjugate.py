@@ -12,15 +12,17 @@ def adjugate(matrix):
         raise TypeError("matrix must be a list of lists")
     n = len(matrix)
     if any(len(row) != n for row in matrix):
-        raise ValueError("matrix must be a square matrix")
+        raise ValueError("matrix must be a non-empty square matrix")
     if n == 1:
         return [[1]]
     cofactor = [[0] * n for _ in range(n)]
     for i in range(n):
         for j in range(n):
-            minor = [row[:j] + row[j+1:] for row in (matrix[:i] + matrix[i+1:])]
+            minor = [row[:j] + row[j+1:]
+                     for row in (matrix[:i] + matrix[i+1:])]
             cofactor[i][j] = (-1) ** (i+j) * determinant(minor)
     return transpose(cofactor)
+
 
 def determinant(matrix):
     """
@@ -38,6 +40,7 @@ def determinant(matrix):
         det += sign * matrix[0][i] * determinant(submatrix)
         sign *= -1
     return det
+
 
 def transpose(matrix):
     """

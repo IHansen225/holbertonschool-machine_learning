@@ -24,6 +24,6 @@ def determinant(matrix):
     det = 0
     for i, k in enumerate(matrix[0]):
         rows = [row for row in matrix[1:]]
-        new_m = [[row[n] for n in range(len(matrix)) if n != i] for row in rows]
+        new_m = [[r[n] for n in range(len(matrix)) if n != i] for r in rows]
         det += k * (-1)**i * determinant(new_m)
     return det

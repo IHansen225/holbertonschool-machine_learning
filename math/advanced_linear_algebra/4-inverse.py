@@ -19,10 +19,12 @@ def inverse(matrix):
     det = determinant(matrix)
     for i in range(n):
         for j in range(n):
-            minor = [row[:j] + row[j+1:] for row in (matrix[:i] + matrix[i+1:])]
+            minor = [row[:j] + row[j+1:]
+                     for row in (matrix[:i] + matrix[i+1:])]
             cofactor[i][j] = (-1) ** (i+j) * determinant(minor)
     adjugate = transpose(cofactor)
     return scalar_multiply(adjugate, 1 / det)
+
 
 def determinant(matrix):
     """
@@ -41,11 +43,13 @@ def determinant(matrix):
         sign *= -1
     return det
 
+
 def transpose(matrix):
     """
     Returns the transpose of a matrix
     """
     return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+
 
 def scalar_multiply(matrix, scalar):
     """
