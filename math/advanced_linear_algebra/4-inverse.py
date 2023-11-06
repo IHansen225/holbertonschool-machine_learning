@@ -51,7 +51,7 @@ def transpose(matrix):
     Returns the transpose of a matrix
     """
     return [[matrix[j][i] for j in range(len(matrix))]
-             for i in range(len(matrix[0]))]
+            for i in range(len(matrix[0]))]
 
 
 def scalar_multiply(matrix, scalar):
