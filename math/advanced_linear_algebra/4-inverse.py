@@ -8,11 +8,13 @@ def inverse(matrix):
     """
     Returns the matrix adjugate
     """
-    if not isinstance(matrix, list) or not all(isinstance(row, list) for row in matrix):
+    if not isinstance(matrix, list):
+        raise TypeError("matrix must be a list of lists")
+    if not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
     n = len(matrix)
     if any(len(row) != n for row in matrix):
-        raise ValueError("matrix must be a non-singular square matrix")
+        raise ValueError("matrix must be a non-empty square matrix")
     if n == 1:
         return [[1 / matrix[0][0]]]
     cofactor = [[0] * n for _ in range(n)]
