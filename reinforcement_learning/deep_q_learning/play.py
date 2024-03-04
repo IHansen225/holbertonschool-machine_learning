@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from keras.models import Sequential
 import gym
+from keras.models import Sequential
 from rl.agents.dqn import DQNAgent
 from rl.policy import GreedyQPolicy
 
